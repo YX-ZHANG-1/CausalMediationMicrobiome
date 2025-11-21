@@ -15,12 +15,12 @@ The workflow includes data generation, model fitting, true-value calculation, an
 |------|--------------|
 | **`null_case.R`** | Runs simulations under null scenarios where indirect effects are absent. |
 | **`alternative_case.R`** | Runs simulations under alternative scenarios where indirect effects are present. |
-| **`a_simulated_sample_of_X.csv`** | Example pseudo-dataset of baseline covariates X, resampled from a real dataset. |
+| **`a_simulated_sample_of_X.csv`** | An example for a pseudo-dataset of baseline covariates X, resampled from a real dataset. |
 | **`simulate_data.R`** | Generates simulated datasets under specified parameters. |
 | **`estimate_true_value_of_IIE.R`** | Computes the true IIE value under alternative scenarios. |
-| **`Outcome_model_fit.R`** | Estimate the outcome model. |
-| **`estimate_IIE.R`** | Estimate the IIE. |
-| **`bootstrap.R`** | Performs bootstrap estimation of the IIE. |
+| **`Outcome_model_fit.R`** | Estimates the outcome model. |
+| **`estimate_IIE.R`** | Estimates the IIE. |
+| **`bootstrap.R`** | Estimates the IIE based on bootstrap samples. |
 
 All code is written in **base R**, using only **CRAN-available packages** for full reproducibility.
 
@@ -46,9 +46,9 @@ for high-dimensional mediators, while adjust for baseline covariates and an expo
 
 | Component | Requirement |
 |------------|-------------|
-| **R version** | ≥ 3.6.0 (tested on R 4.1.1) |
+| **R version** | ≥ 4.1 (tested on R 4.1.1) |
 | **Operating Systems Tested** | 65-core node equipped with an Intel Cascade Lake CPU |
-| **Required Packages** | `snowfall`, `MASS`, `dplyr`, `coxed`, `tidyverse`, `dglm`, `ncvreg`, `glmnet`, `cubature`, `deepTL`|
+| **Required Packages** | `snowfall`, `MASS`, `dplyr`, `tidyverse`, `dglm`, `ncvreg`, `glmnet`, `cubature`, `deepTL`|
 
 All packages are platform-independent and available via **CRAN** and **github**.
 
@@ -59,7 +59,7 @@ All packages are platform-independent and available via **CRAN** and **github**.
 Before running the R scripts, install required packages from **CRAN** and **github**:
 
 ```r
-install.packages(c("snowfall", "MASS", "dplyr", "coxed", "tidyverse", "dglm", "ncvreg", "glmnet", "cubature"))
+install.packages(c("devtools", "snowfall", "MASS", "dplyr", "tidyverse", "dglm", "ncvreg", "glmnet", "cubature"))
 
 devtools::install_github("SkadiEye/deepTL")
 ```
@@ -78,12 +78,30 @@ setwd("path/to/CausalMediationMicrobiome")
 source("null_case.R")
 
 source("alternative_case.R")
-
 ```
+Each script automatically sources all required subfiles and executes the full simulation procedure.
 
 ### 2️⃣ Expected Output
-Simulation results will be generated automatically and saved according to the script settings.
+Running either main script will:
 
+-  Generate simulated datasets
+
+-  Fit the necessary models
+
+-  Estimate the individual indirect effect (IIE)
+
+-  Save the results to the output directory specified in the script
+
+No additional user steps are needed unless you want to modify default settings.
+
+### 3️⃣ Adjusting Simulation Settings
+If you want to explore different simulation configurations (e.g., sample size, number of mediators, signal strength, noise levels),
+you can edit the parameter blocks near the top of the main files:
+- null_case.R
+
+- alternative_case.R
+
+These files contain clearly labeled parameter sections so you can easily customize the simulation environment.
 
 ## 🪪 License
 
