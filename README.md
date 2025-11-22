@@ -50,13 +50,13 @@ for high-dimensional mediators, while adjust for baseline covariates and an expo
 | **Operating Systems Tested** | 65-core node equipped with an Intel Cascade Lake CPU |
 | **Required Packages** | `snowfall`, `MASS`, `dplyr`, `tidyverse`, `dglm`, `ncvreg`, `glmnet`, `cubature`, `deepTL`|
 
-All packages are platform-independent and available via **CRAN** and **github**.
+All packages are platform-independent and available via **CRAN** and **GitHub**.
 
 ## 📦 Installation Guide
 
 ### 🧰 Package Installation
 
-Before running the R scripts, install required packages from **CRAN** and **github**:
+Before running the R scripts, install required packages from **CRAN** and **GitHub**:
 
 ```r
 install.packages(c("devtools", "snowfall", "MASS", "dplyr", "tidyverse", "dglm", "ncvreg", "glmnet", "cubature"))
