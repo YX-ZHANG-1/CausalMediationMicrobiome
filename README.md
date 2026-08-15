@@ -15,7 +15,7 @@ The workflow includes data generation, model fitting, true-value calculation, an
 |------|--------------|
 | **`null_case.R`** | Runs simulations under null scenarios where indirect effects are absent. |
 | **`alternative_case.R`** | Runs simulations under alternative scenarios where indirect effects are present. |
-| **`a_simulated_sample_of_X.csv`** | An example for a pseudo-dataset of baseline covariates X, resampled from a real dataset. |
+| **`a pseudo-dataset for baseline covariates X.csv`** | An example for a pseudo-dataset of baseline covariates X, resampled from a real dataset. |
 | **`simulate_data.R`** | Generates simulated datasets under specified parameters. |
 | **`estimate_true_value_of_IIE.R`** | Computes the true IIE value under alternative scenarios. |
 | **`Outcome_model_fit.R`** | Estimates the outcome model. |
@@ -30,7 +30,7 @@ All code is written in **base R**, using only **CRAN-available packages** for fu
 
 This code accompanies the manuscript:
 
-> **Zhang, Y.**, Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S.,  Wang, L., & Hu, J. (2025+).  
+> **Zhang, Y.**, Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S.,  Wang, L., & Hu, J. (2026+).  
 > *Inverse Probability Weighting-based Mediation Analysis for Microbiome Data.*  
 
 The framework estimates:
