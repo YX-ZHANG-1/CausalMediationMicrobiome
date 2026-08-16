@@ -20,7 +20,7 @@ The default implementation uses SCAD-penalized outcome regression with AIC tunin
 | [`simulate_data.R`](simulate_data.R) | Generates `Y`, `Z`, `L`, two baseline covariates, and clr-transformed compositional mediators. |
 | [`Outcome_model_fit.R`](Outcome_model_fit.R) | Fits penalized outcome models and selects the tuning parameter by cross-validation, AIC, BIC, or extended BIC. |
 | [`estimate_IIE.R`](estimate_IIE.R) | Estimates the IIE using the proposed IPW procedure. |
-| [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates and retries failed or inadmissible estimates up to a prespecified limit. |
+| [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates. |
 | [`estimate_true_value_of_IIE.R`](estimate_true_value_of_IIE.R) | Approximates the true IIE under the alternative scenario using large simulated samples and numerical integration. |
 | [`a pseudo-dataset for baseline covariates X.csv`](a%20pseudo-dataset%20for%20baseline%20covariates%20X.csv) | Pseudo-data containing `age` and binary `sex`, used in place of the original baseline-covariate data. |
 
