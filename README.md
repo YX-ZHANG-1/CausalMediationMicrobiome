@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the R code used for simulation studies of an inverse probability weighting (IPW) estimator of the interventional indirect effect (IIE) with high-dimensional compositional mediators. The simulations include a binary exposure, a binary exposure-induced mediator-outcome confounder, centered log-ratio (CLR) transformed mediators, two baseline covariates, and a binary outcome.
+This repository contains the R code used for simulation studies of an inverse probability weighting (IPW) estimator of the interventional indirect effect (IIE) with high-dimensional compositional mediators. The simulations include a binary exposure, a binary exposure-induced mediator-outcome confounder, centered log-ratio (clr) transformed mediators, two baseline covariates, and a binary outcome.
 
 Two simulation scenarios are provided:
 
