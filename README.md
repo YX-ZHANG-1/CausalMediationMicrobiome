@@ -1,112 +1,207 @@
-# Inverse Probability Weighting-based Mediation Analysis for Microbiome Data
----
+# Inverse Probability Weighting-Based Mediation Analysis for Microbiome Data
 
+## Overview
 
-## 📖 Overview
+This repository contains the R code used for simulation studies of an inverse probability weighting (IPW) estimator of the interventional indirect effect (IIE) with high-dimensional compositional mediators. The simulations include a binary exposure, a binary exposure-induced mediator-outcome confounder, centered log-ratio (CLR) transformed mediators, two baseline covariates, and a binary outcome.
 
-This repository contains R scripts for conducting simulation studies under both **null** and **alternative** scenarios to estimate the interventional indirect effect (IIE).
-The workflow includes data generation, model fitting, true-value calculation, and bootstrap procedures.
+Two simulation scenarios are provided:
 
----
+- `null_case.R` evaluates estimation performance and type I error when the true IIE is zero.
+- `alternative_case.R` evaluates estimation performance and power when the true IIE is nonzero. It first approximates the true IIE using large simulated samples.
 
-## 📂 Repository Structure
+The default implementation uses SCAD-penalized outcome regression with AIC tuning, a deep-learning ensemble for the mediator-outcome confounder model, IPW estimation, normal-approximation confidence intervals based on bootstrap standard errors, and parallel computation.
+
+## Repository contents
 
 | File | Description |
-|------|--------------|
-| **`null_case.R`** | Runs simulations under null scenarios where indirect effects are absent. |
-| **`alternative_case.R`** | Runs simulations under alternative scenarios where indirect effects are present. |
-| **`a pseudo-dataset for baseline covariates X.csv`** | An example for a pseudo-dataset of baseline covariates X, resampled from a real dataset. |
-| **`simulate_data.R`** | Generates simulated datasets under specified parameters. |
-| **`estimate_true_value_of_IIE.R`** | Computes the true IIE value under alternative scenarios. |
-| **`Outcome_model_fit.R`** | Estimates the outcome model. |
-| **`estimate_IIE.R`** | Estimates the IIE. |
-| **`bootstrap.R`** | Estimates the IIE based on bootstrap samples. |
+| --- | --- |
+| [`null_case.R`](null_case.R) | Main script for the null scenario. It reports Monte Carlo bias, standard deviation, RMSE, and type I error. |
+| [`alternative_case.R`](alternative_case.R) | Main script for the alternative scenario. It approximates the true IIE and reports Monte Carlo bias, standard deviation, RMSE, and power. |
+| [`simulate_data.R`](simulate_data.R) | Generates `Y`, `Z`, `L`, two baseline covariates, and CLR-transformed compositional mediators. |
+| [`Outcome_model_fit.R`](Outcome_model_fit.R) | Fits penalized outcome models and selects the tuning parameter by cross-validation, AIC, BIC, or extended BIC. |
+| [`estimate_IIE.R`](estimate_IIE.R) | Estimates the IIE using the proposed IPW procedure. |
+| [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates and retries failed or inadmissible estimates up to a prespecified limit. |
+| [`estimate_true_value_of_IIE.R`](estimate_true_value_of_IIE.R) | Approximates the true IIE under the alternative scenario using large simulated samples and numerical integration. |
+| [`a pseudo-dataset for baseline covariates X.csv`](a%20pseudo-dataset%20for%20baseline%20covariates%20X.csv) | Pseudo-data containing `age` and binary `sex`, used in place of the original baseline-covariate data. |
+| [`LICENSE.txt`](LICENSE.txt) | MIT License governing use, modification, and redistribution of the software. |
+| `arxived/` | Earlier code versions retained for reference. These files are not sourced by the active simulation scripts. |
 
-All code is written in **base R**, using only **CRAN-available packages** for full reproducibility.
+## Simulation workflow
 
----
+Each Monte Carlo replication performs the following steps:
 
-## 🧠 Scientific Context
+1. Resample the two baseline covariates from the supplied pseudo-dataset.
+2. Simulate the binary exposure `Z`.
+3. Simulate the binary exposure-induced mediator-outcome confounder `L`.
+4. Simulate the clr-transformed compositional mediators `clrM`.
+5. Simulate the binary outcome `Y`.
+6. Fit a penalized outcome model. The exposure, confounder, and baseline covariates are not penalized; the mediator coefficients are penalized.
+7. Estimate the conditional models required for the IPW estimator.
+8. Estimate the IIE and obtain bootstrap estimates.
+9. Summarize Monte Carlo bias, standard deviation, RMSE, and either type I error or power.
 
-This code accompanies the manuscript:
+The active scripts assume exactly two baseline covariates. In the supplied pseudo-dataset, the first covariate is age and is divided by 100 before analysis; the second is binary sex.
 
-> **Zhang, Y.**, Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S.,  Wang, L., & Hu, J. (2026+).  
-> *Inverse Probability Weighting-based Mediation Analysis for Microbiome Data.*  
+## Software requirements
 
-The framework estimates:
-- **Interventional Indirect Effect (IIE)**  
+The code requires R and the following packages:
 
-for high-dimensional mediators, while adjust for baseline covariates and an exposure-indecuded mediator-outcome confounder using  **Inverse Probability Weighting** with **SCAD-based regularization**.
+- `snowfall`
+- `MASS`
+- `dplyr`
+- `tidyr`
+- `tibble`
+- `dglm`
+- `ncvreg`
+- `glmnet`
+- `cubature`
+- `deepTL`
 
----
+The `cubature` package is required by the alternative-scenario true-IIE calculation. The `deepTL` package supplies `importDnnet()`, `ensemble_dnnet()`, and the associated prediction method used by the IPW estimator.
 
-## ⚙️ System Requirements
-
-### 💻 Software Requirements
-
-| Component | Requirement |
-|------------|-------------|
-| **R version** | ≥ 4.1 (tested on R 4.1.1) |
-| **Operating Systems Tested** | 65-core node equipped with an Intel Cascade Lake CPU |
-| **Required Packages** | `snowfall`, `MASS`, `dplyr`, `tidyverse`, `dglm`, `ncvreg`, `glmnet`, `cubature`, `deepTL`|
-
-All packages are platform-independent and available via **CRAN** and **GitHub**.
-
-## 📦 Installation Guide
-
-### 🧰 Package Installation
-
-Before running the R scripts, install required packages from **CRAN** and **GitHub**:
+Install the CRAN packages with:
 
 ```r
-install.packages(c("devtools", "snowfall", "MASS", "dplyr", "tidyverse", "dglm", "ncvreg", "glmnet", "cubature"))
-
-devtools::install_github("SkadiEye/deepTL")
+install.packages(
+  c(
+    "snowfall",
+    "MASS",
+    "dplyr",
+    "tidyr",
+    "tibble",
+    "dglm",
+    "ncvreg",
+    "glmnet",
+    "cubature",
+    "remotes"
+  )
+)
 ```
 
-  ## 🧭 Instructions for Use
-
-### 1️⃣ Run the Complete Workflow
-
-From your R terminal or RStudio console, execute:
+Install `deepTL` from GitHub with:
 
 ```r
-# Step 1. Set working directory to this repository 
-setwd("path/to/CausalMediationMicrobiome")
+remotes::install_github("SkadiEye/deepTL")
+```
 
-# Step 2. Run one of the main scripts:
+## Running the simulations
+
+Clone or download the repository, open a terminal in the repository directory, and run one of the main scripts.
+
+Null scenario:
+
+```sh
+Rscript null_case.R
+```
+
+Alternative scenario:
+
+```sh
+Rscript alternative_case.R
+```
+
+Alternatively, from R or RStudio:
+
+```r
+setwd("/path/to/CausalMediationMicrobiome")
+
 source("null_case.R")
-
+# or
 source("alternative_case.R")
 ```
-Each script automatically sources all required subfiles and executes the full simulation procedure.
 
-### 2️⃣ Expected Output
-Running either main script will:
+The working directory must contain the main script, the supporting R files, and the pseudo-dataset because the scripts use relative paths. Run the null and alternative scripts in separate R sessions because each script begins by clearing the current workspace.
 
--  Generate simulated datasets
+## Default settings
 
--  Fit the necessary models
+| Setting | Null scenario | Alternative scenario |
+| --- | ---: | ---: |
+| Monte Carlo replications (`nrep`) | 500 | 500 |
+| Bootstrap replications (`nbts`) | 400 | 400 |
+| Subjects per simulated dataset (`n_subj`) | 70 | 70 |
+| Mediator components (`n_M`) | 134 | 134 |
+| Large-sample size for true-IIE approximation (`n_true`) | Not applicable | 10,000 |
+| Maximum attempts per estimate (`iter1`) | 50 | 50 |
+| Maximum accepted absolute IIE (`threshold`) | 1 | 1 |
+| Penalization | SCAD | SCAD |
+| Tuning method | AIC | AIC |
+| Parallel workers (`ncpus`) | 40 | 40 |
 
--  Estimate the individual indirect effect (IIE)
+These defaults are computationally intensive. For a short installation test, temporarily reduce `nrep`, `nbts`, `n_true` in the alternative script, and `ncpus`. Do not set `ncpus` above the number of CPU cores allocated to the R job.
 
--  Save the results to the output directory specified in the script
+## Output
 
-No additional user steps are needed unless you want to modify default settings.
+Each main script saves an `.RData` file in the working directory. The filename follows this pattern:
 
-### 3️⃣ Adjusting Simulation Settings
-If you want to explore different simulation configurations (e.g., sample size, number of mediators, signal strength, noise levels),
-you can edit the parameter blocks near the top of the main files:
-- null_case.R
+```text
+results_penalty_<penalty>_tune_<tune>_case<case>_n<n_subj>_nrep<nrep>.RData
+```
 
-- alternative_case.R
+For example:
 
-These files contain clearly labeled parameter sections so you can easily customize the simulation environment.
+```text
+results_penalty_SCAD_tune_aic_casenull_n70_nrep500.RData
+results_penalty_SCAD_tune_aic_casealternative_n70_nrep500.RData
+```
 
-## 🪪 License
+The null-scenario output contains:
 
-This repository is distributed under the **MIT License**.  
-You are free to use, modify, and distribute this code with proper attribution.  
-See the [LICENSE](LICENSE) file for full terms.
+- `true.parameters`: simulation parameters
+- `IIE.true`: true IIE, fixed at zero
+- `IIE_hat_all`: Monte Carlo IIE estimates
+- `IIE_hat_bs_all`: bootstrap estimates for each Monte Carlo sample
+- `IIE_bias`, `IIE_sd`, and `IIE_rmse`: Monte Carlo performance summaries
+- `type_one_error`: estimated type I error based on normal bootstrap intervals
+- `elapsed_time`: elapsed runtime in seconds
 
+The alternative-scenario output contains analogous estimates and performance summaries, with `power` in place of `type_one_error`. It also contains:
 
+- `IIE_true_all`: large-sample estimates used to approximate the true IIE
+- `power`: estimated rejection probability for the null hypothesis that the IIE is zero
+
+Load a saved result with:
+
+```r
+load("results_penalty_SCAD_tune_aic_casenull_n70_nrep500.RData")
+
+summary(IIE_hat_all)
+type_one_error
+```
+
+## Customizing the simulation
+
+The main scripts contain labeled parameter blocks near the top of each file. Common settings to modify include:
+
+- `nrep`: number of Monte Carlo replications
+- `nbts`: number of bootstrap replications
+- `n_subj`: sample size
+- `n_M`: number of mediator components
+- `n_true`: large-sample size for approximating the true IIE in the alternative scenario
+- `ncpus`: number of parallel workers
+- `penalty`: `"SCAD"`, `"MCP"`, or `"lasso"`
+- `tune`: `"cv"`, `"aic"`, `"bic"`, or `"ebic"`
+- `iter1`: maximum number of attempts after estimation failure
+- `threshold`: maximum accepted absolute IIE estimate
+- regression coefficients governing the exposure, confounder, mediator, and outcome models
+
+If the baseline-covariate file is replaced, retain two numeric columns or update the column-selection and model code accordingly. Ensure that `n_M` equals the length of `beta_M`.
+
+## Reproducibility notes
+
+- The simulation and resampling steps use explicitly constructed random-number seeds.
+- The scripts save the parameter settings and elapsed runtime with the results.
+- Exact numerical results can still depend on the R version, package versions, operating system, and parallel-computing environment.
+- Failed model fits and inadmissible IIE estimates are retried up to `iter1` times. If no valid estimate is obtained, the corresponding result is stored as `NA`.
+- The alternative scenario is substantially more computationally intensive because it uses large samples and numerical integration to approximate the true IIE.
+
+## Citation
+
+If you use this code, please cite the accompanying manuscript:
+
+> Zhang, Y., Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S., Wang, L., and Hu, J. *Inverse Probability Weighting-Based Mediation Analysis for Microbiome Data.* Manuscript submitted to *Bioinformatics*.
+
+After the software is archived on Zenodo, add the version-specific software DOI and citation here.
+
+## License
+
+This software is distributed under the [MIT License](LICENSE.txt). Copyright (c) 2025 Yuexia Zhang.
