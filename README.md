@@ -22,7 +22,7 @@ The default implementation uses SCAD-penalized outcome regression with AIC tunin
 | [`estimate_IIE.R`](estimate_IIE.R) | Estimates the IIE using the proposed IPW procedure. |
 | [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates. |
 | [`estimate_true_value_of_IIE.R`](estimate_true_value_of_IIE.R) | Approximates the true IIE under the alternative scenario using large simulated samples and numerical integration. |
-| [`a pseudo-dataset for baseline covariates X.csv`](a%20pseudo-dataset%20for%20baseline%20covariates%20X.csv) | Pseudo-data containing `age` and binary `sex`, used in place of the original baseline-covariate data. |
+| [`a pseudo-dataset for baseline covariates X.csv`](a%20pseudo-dataset%20for%20baseline%20covariates%20X.csv) | Pseudo-data containing `age` and binary `sex`, used in place of the real baseline covariate data. |
 
 ## Simulation workflow
 
