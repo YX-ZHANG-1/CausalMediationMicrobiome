@@ -71,7 +71,7 @@ install.packages(
     "ncvreg",
     "glmnet",
     "cubature",
-    "remotes"
+    "devtools"
   )
 )
 ```
@@ -79,7 +79,7 @@ install.packages(
 Install `deepTL` from GitHub with:
 
 ```r
-remotes::install_github("SkadiEye/deepTL")
+devtools::install_github("SkadiEye/deepTL")
 ```
 
 ## Running the simulations
