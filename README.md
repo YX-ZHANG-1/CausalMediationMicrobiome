@@ -125,7 +125,7 @@ The working directory must contain the main script, the supporting R files, and 
 | Tuning method | AIC | AIC |
 | Parallel workers (`ncpus`) | 40 | 40 |
 
-These defaults are computationally intensive. For a short installation test, temporarily reduce `nrep`, `nbts`, `n_true` in the alternative script, and `ncpus`. Do not set `ncpus` above the number of CPU cores allocated to the R job.
+These defaults are computationally intensive. For a short installation test, temporarily reduce `nrep`, `nbts`, and `ncpus`, as well as `n_true` in the alternative script. Do not set `ncpus` above the number of CPU cores allocated to the R job.
 
 ## Output
 
