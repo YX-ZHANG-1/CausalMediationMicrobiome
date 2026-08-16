@@ -197,4 +197,4 @@ If you use this code, please cite the accompanying manuscript:
 
 ## License
 
-This software is distributed under the [MIT License](LICENSE.txt). Copyright (c) 2025 Yuexia Zhang.
+This software is distributed under the [MIT License](LICENSE). Copyright (c) 2025 Yuexia Zhang.
