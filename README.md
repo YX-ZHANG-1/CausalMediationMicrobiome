@@ -17,7 +17,7 @@ The default implementation uses SCAD-penalized outcome regression with AIC tunin
 | --- | --- |
 | [`null_case.R`](null_case.R) | Main script for the null scenario. It reports Monte Carlo bias, standard deviation, RMSE, and type I error. |
 | [`alternative_case.R`](alternative_case.R) | Main script for the alternative scenario. It approximates the true IIE and reports Monte Carlo bias, standard deviation, RMSE, and power. |
-| [`simulate_data.R`](simulate_data.R) | Generates `Y`, `Z`, `L`, two baseline covariates, and CLR-transformed compositional mediators. |
+| [`simulate_data.R`](simulate_data.R) | Generates `Y`, `Z`, `L`, two baseline covariates, and clr-transformed compositional mediators. |
 | [`Outcome_model_fit.R`](Outcome_model_fit.R) | Fits penalized outcome models and selects the tuning parameter by cross-validation, AIC, BIC, or extended BIC. |
 | [`estimate_IIE.R`](estimate_IIE.R) | Estimates the IIE using the proposed IPW procedure. |
 | [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates and retries failed or inadmissible estimates up to a prespecified limit. |
