@@ -9,7 +9,7 @@ Two simulation scenarios are provided:
 - `null_case.R` evaluates estimation performance and type I error when the true IIE is zero.
 - `alternative_case.R` evaluates estimation performance and power when the true IIE is nonzero. It first approximates the true IIE using large simulated samples.
 
-The default implementation uses SCAD-penalized outcome regression with AIC tuning, a deep-learning ensemble for the mediator-outcome confounder model, IPW estimation, normal-approximation confidence intervals based on bootstrap standard errors, and parallel computation.
+The default implementation uses SCAD-penalized outcome regression with AIC tuning, a deep-learning ensemble for the exposure-induced mediator-outcome confounder model, IPW estimation, normal-approximation confidence intervals based on bootstrap standard errors, and parallel computation.
 
 ## Repository contents
 
