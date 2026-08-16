@@ -172,14 +172,14 @@ The main scripts contain labeled parameter blocks near the top of each file. Com
 - `n_subj`: sample size
 - `n_M`: number of mediator components
 - `n_true`: large-sample size for approximating the true IIE in the alternative scenario
-- `ncpus`: number of parallel workers
+- `ncpus`: number of CPU cores used for parallel computing
 - `penalty`: `"SCAD"`, `"MCP"`, or `"lasso"`
 - `tune`: `"cv"`, `"aic"`, `"bic"`, or `"ebic"`
 - `iter1`: maximum number of attempts after estimation failure
-- `threshold`: maximum accepted absolute IIE estimate
+- `threshold`: maximum acceptable absolute value of an IIE estimate
 - regression coefficients governing the exposure, confounder, mediator, and outcome models
 
-If the baseline-covariate file is replaced, retain two numeric columns or update the column-selection and model code accordingly. Ensure that `n_M` equals the length of `beta_M`.
+If the baseline-covariate file is replaced, retain two numeric columns or update the column-selection and model code accordingly. 
 
 ## Reproducibility notes
 
