@@ -195,8 +195,6 @@ If you use this code, please cite the accompanying manuscript:
 
 > Zhang, Y., Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S., Wang, L., and Hu, J. *Inverse Probability Weighting-Based Mediation Analysis for Microbiome Data.*(2026+).
 
-After the software is archived on Zenodo, add the version-specific software DOI and citation here.
-
 ## License
 
 This software is distributed under the [MIT License](LICENSE.txt). Copyright (c) 2025 Yuexia Zhang.
