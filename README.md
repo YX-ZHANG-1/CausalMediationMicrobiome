@@ -193,7 +193,7 @@ If the baseline-covariate file is replaced, retain two numeric columns or update
 
 If you use this code, please cite the accompanying manuscript:
 
-> Zhang, Y., Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S., Wang, L., and Hu, J. *Inverse Probability Weighting-Based Mediation Analysis for Microbiome Data.* Manuscript submitted to *Bioinformatics*.
+> Zhang, Y., Wang, J., Shen, J., Galloway-Peña, J., Shelburne, S., Wang, L., and Hu, J. *Inverse Probability Weighting-Based Mediation Analysis for Microbiome Data. (2026+).
 
 After the software is archived on Zenodo, add the version-specific software DOI and citation here.
 
