@@ -161,9 +161,6 @@ Load a saved result with:
 
 ```r
 load("results_penalty_SCAD_tune_aic_casenull_n70_nrep500.RData")
-
-summary(IIE_hat_all)
-type_one_error
 ```
 
 ## Customizing the simulation
