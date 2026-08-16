@@ -23,8 +23,6 @@ The default implementation uses SCAD-penalized outcome regression with AIC tunin
 | [`bootstrap.R`](bootstrap.R) | Generates bootstrap IIE estimates and retries failed or inadmissible estimates up to a prespecified limit. |
 | [`estimate_true_value_of_IIE.R`](estimate_true_value_of_IIE.R) | Approximates the true IIE under the alternative scenario using large simulated samples and numerical integration. |
 | [`a pseudo-dataset for baseline covariates X.csv`](a%20pseudo-dataset%20for%20baseline%20covariates%20X.csv) | Pseudo-data containing `age` and binary `sex`, used in place of the original baseline-covariate data. |
-| [`LICENSE.txt`](LICENSE.txt) | MIT License governing use, modification, and redistribution of the software. |
-| `arxived/` | Earlier code versions retained for reference. These files are not sourced by the active simulation scripts. |
 
 ## Simulation workflow
 
